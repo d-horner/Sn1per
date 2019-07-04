@@ -18,8 +18,6 @@ RUN set -x \
     && apt-get -yqq dist-upgrade \
     && apt-get clean
 
-RUN sed -i 's/systemctl status ${PG_SERVICE}/service ${PG_SERVICE} status/g' /usr/bin/msfdb && msfdb reinit
-
 RUN \
     apt-get --yes install git \
     && mkdir -p security \
@@ -27,6 +25,8 @@ RUN \
     && git clone https://github.com/1N3/Sn1per.git \
     && cd Sn1per \
     && ./install.sh
+
+RUN sed -i 's/systemctl status ${PG_SERVICE}/service ${PG_SERVICE} status/g' /usr/bin/msfdb && msfdb reinit
 
 CMD ["bash"]
 
